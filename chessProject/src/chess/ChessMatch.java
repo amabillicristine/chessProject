@@ -39,7 +39,7 @@ public class ChessMatch {
     }
 
     public boolean getCheck() {
-        return check = true;
+        return check;
     }
 
     public ChessPiece[][] getPieces() {
@@ -63,7 +63,7 @@ public class ChessMatch {
             undoMove(source, target, capturedPiece);
             throw new ChessExeception("vc não pode se por em check");
         }
-        check = (testCheck(opponent(currentPlayer)))? true : false;
+        check = (testCheck(opponent(currentPlayer))) ? true : false;
         nextTurn();
         return (ChessPiece) capturedPiece;
     }
@@ -135,7 +135,7 @@ public class ChessMatch {
 
     private boolean testCheck(Color color) {
         Position kingPosition = king(color).getChessPosition().toPosition();
-        List<Piece> opponentPieces = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() == color).collect(Collectors.toList());
+        List<Piece> opponentPieces = piecesOnTheBoard.stream().filter(x -> ((ChessPiece)x).getColor() != color).collect(Collectors.toList());
         for (Piece p : opponentPieces) {
             boolean[][] mat = p.possibleMoves();
             if (mat[kingPosition.getRow()][kingPosition.getColumn()]){
